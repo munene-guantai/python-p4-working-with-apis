@@ -10,5 +10,20 @@ class GetPrograms:
     response = requests.get(URL)
     return response.content
 
-programs = GetPrograms().get_programs()
-print(programs)
+
+  def program_school(self):
+    programs_list = []
+    programs = json.loads(self.get_programs())
+    for program in programs:
+        programs_list.append(program["agency"])
+
+    return programs_list
+
+programs_instance = GetPrograms()
+programs_data = programs_instance.get_programs()
+print(programs_data)
+
+programs_schools = programs_instance.program_school()
+
+for school in set(programs_schools):
+    print(school)
